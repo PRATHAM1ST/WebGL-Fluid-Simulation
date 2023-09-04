@@ -1615,4 +1615,4 @@ function hashCode (s) {
 
 setInterval(() => {
     splatStack.push(parseInt(Math.random() * 20) + 5);
-}, 2000);
+}, 5000);
