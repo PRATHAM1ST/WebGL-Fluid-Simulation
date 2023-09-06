@@ -285,16 +285,38 @@
 		<script src="./script.js"></script>
 		<script>
 			function simulateMouseDragAndRelease() {
-				const startXPercentage = 82.5; // 10% from the left
-				const startX = (window.innerHeight * startXPercentage) / 100; // Calculate the actual starting X coordinate
-				const startYPercentage = 10; // 10% from the left
-				const startY = (window.innerWidth * startYPercentage) / 100; // Calculate the actual starting Y coordinate
-				const endY = startX - 200; // 200px of travel upward
+				const startX = window.innerWidth - 150; // 150px from the right
+				const startY = window.innerHeight - 100; // 100px from the bottom
+				const endX = startX - 200; // 200px of travel to the left
 				const duration = 500; // 0.5 seconds (500 milliseconds)
+				const startX2 = window.innerWidth - 150; // 150px from the right
+				const startY2 = window.innerHeight - 200; // 100px from the bottom
+				const endX2 = startX3 - 200; // 200px of travel to the left
+				const duration2 = 500; // 0.5 seconds (500 milliseconds)
+				const startX3 = window.innerWidth - 150; // 150px from the right
+				const startY3 = window.innerHeight - 300; // 100px from the bottom
+				const endX3 = startX3 - 200; // 200px of travel to the left
+				const duration3 = 500; // 0.5 seconds (500 milliseconds)
 
 				const elementToDrag = document.elementFromPoint(startX, startY);
+				const elementToDrag2 = document.elementFromPoint(startX2, startY2);
+				const elementToDrag3 = document.elementFromPoint(startX3, startY3);
 
 				if (!elementToDrag) {
+					console.error(
+						"No element found at the starting coordinates."
+					);
+					return;
+				}
+
+				if (!elementToDrag2) {
+					console.error(
+						"No element found at the starting coordinates."
+					);
+					return;
+				}
+
+				if (!elementToDrag3) {
 					console.error(
 						"No element found at the starting coordinates."
 					);
@@ -307,16 +329,48 @@
 				});
 
 				const mouseMoveEvent = new MouseEvent("mousemove", {
-					clientX: startX,
-					clientY: endY,
+					clientX: endX,
+					clientY: startY,
 				});
 
 				const mouseUpEvent = new MouseEvent("mouseup", {
-					clientX: startX,
-					clientY: endY,
+					clientX: endX,
+					clientY: startY,
+				});
+
+				const mouseDownEvent2 = new MouseEvent("mousedown", {
+					clientX: startX2,
+					clientY: startY2,
+				});
+
+				const mouseMoveEvent2 = new MouseEvent("mousemove", {
+					clientX: endX2,
+					clientY: startY2,
+				});
+
+				const mouseUpEvent2 = new MouseEvent("mouseup", {
+					clientX: endX2,
+					clientY: startY2,
+				});
+
+				const mouseDownEvent3 = new MouseEvent("mousedown", {
+					clientX: startX3,
+					clientY: startY3,
+				});
+
+				const mouseMoveEvent3 = new MouseEvent("mousemove", {
+					clientX: endX3,
+					clientY: startY3,
+				});
+
+				const mouseUpEvent3 = new MouseEvent("mouseup", {
+					clientX: endX3,
+					clientY: startY3,
 				});
 
 				elementToDrag.dispatchEvent(mouseDownEvent);
+				elementToDrag2.dispatchEvent(mouseDownEvent2);
+				elementToDrag3.dispatchEvent(mouseDownEvent3);
 
 				setTimeout(() => {
 					elementToDrag.dispatchEvent(mouseMoveEvent);
@@ -324,7 +378,25 @@
 						elementToDrag.dispatchEvent(mouseUpEvent);
 					}, duration);
 				}, 0);
+
+				// setTimeout(() => {
+				// 	elementToDrag2.dispatchEvent(mouseMoveEvent2);
+				// 	setTimeout(() => {
+				// 		elementToDrag2.dispatchEvent(mouseUpEvent2);
+				// 	}, duration2);
+				// }, 100);
+
+				// setTimeout(() => {
+				// 	elementToDrag3.dispatchEvent(mouseMoveEvent3);
+				// 	setTimeout(() => {
+				// 		elementToDrag3.dispatchEvent(mouseUpEvent3);
+				// 	}, duration3);
+				// }, 200);
+
 			}
+
+			// Call the function to simulate the mouse drag and release
+			simulateMouseDragAndRelease();
 
 			let testInt = setInterval(simulateMouseDragAndRelease, 1000);
 		</script>
